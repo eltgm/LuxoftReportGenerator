@@ -15,7 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
-import static java.util.Calendar.*;
+import static java.util.Calendar.YEAR;
+import static java.util.Calendar.getInstance;
 import static org.joda.time.LocalDate.now;
 import static org.springframework.util.StringUtils.hasText;
 
@@ -44,8 +45,7 @@ public class ReportGeneratorService {
         ReportDataInfo workDaysAndDayOffsInfo = workCalendarService.getWorkDaysAndDayOffsInfo(now());
         Calendar calendar = getInstance();
 
-        String reportCreateMonth = calendar.getDisplayName(MONTH,
-                LONG_FORMAT, new Locale("ru"));
+        String reportCreateMonth = new SimpleDateFormat("LLLL", new Locale("ru", "RU")).format(now().toDate());
         String reportCreateDay = String.valueOf(workDaysAndDayOffsInfo.getReportGenerateDay());
         String reportCreateYear = String.valueOf(calendar.get(YEAR));
 

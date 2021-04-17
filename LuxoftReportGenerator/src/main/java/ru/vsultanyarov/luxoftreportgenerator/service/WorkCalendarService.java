@@ -38,7 +38,6 @@ public class WorkCalendarService {
     }
 
     public ReportDataInfo getWorkDaysAndDayOffsInfo(LocalDate now) {
-
         int month = now.getMonthOfYear();
         int year = now.getYear();
 
@@ -64,11 +63,5 @@ public class WorkCalendarService {
                 .workDays(workDays)
                 .reportGenerateDay(reportGenerateDay)
                 .build();
-    }
-
-    public void test() {
-        if (true) {
-            throw new RuntimeException("Test exc");
-        }
     }
 }
