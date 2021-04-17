@@ -19,7 +19,9 @@ public class EmailService {
     private final ReportProperties reportProperties;
     private final UserDao userDao;
 
-    public EmailService(JavaMailSender javaMailSender, ReportProperties reportProperties, UserDao userDao) {
+    public EmailService(JavaMailSender javaMailSender,
+                        ReportProperties reportProperties,
+                        UserDao userDao) {
         this.emailSender = javaMailSender;
         this.reportProperties = reportProperties;
         this.userDao = userDao;

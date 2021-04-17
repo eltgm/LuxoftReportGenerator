@@ -13,10 +13,12 @@ import java.util.Locale;
 @Service
 public class WorkCalendarService {
     private static final String WORK_DAYS_DAYS_OFF_URL = "https://isdayoff.ru/api/getdata?year=%d&month=%d&cc=ru";
+
     private final RestTemplate restTemplate;
     private final UserDao userDao;
 
-    public WorkCalendarService(RestTemplate restTemplate, UserDao userDao) {
+    public WorkCalendarService(RestTemplate restTemplate,
+                               UserDao userDao) {
         this.restTemplate = restTemplate;
         this.userDao = userDao;
     }

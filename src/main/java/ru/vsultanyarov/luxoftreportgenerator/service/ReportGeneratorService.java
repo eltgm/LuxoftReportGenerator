@@ -23,6 +23,7 @@ import static org.springframework.util.StringUtils.hasText;
 @Service
 public class ReportGeneratorService {
     private static final String FONT_NAME = "Times New Roman";
+
     private final UserDao userDao;
     private final WorkCalendarService workCalendarService;
     private final ReportProperties reportProperties;
@@ -45,7 +46,8 @@ public class ReportGeneratorService {
         ReportDataInfo workDaysAndDayOffsInfo = workCalendarService.getWorkDaysAndDayOffsInfo(now());
         Calendar calendar = getInstance();
 
-        String reportCreateMonth = new SimpleDateFormat("LLLL", new Locale("ru", "RU")).format(now().toDate());
+        String reportCreateMonth = calendar.getDisplayName(Calendar.MONTH,
+                Calendar.LONG_FORMAT, new Locale("ru"));
         String reportCreateDay = String.valueOf(workDaysAndDayOffsInfo.getReportGenerateDay());
         String reportCreateYear = String.valueOf(calendar.get(YEAR));
 

@@ -3,7 +3,7 @@ package ru.vsultanyarov.luxoftreportgenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication//(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 public class LuxoftReportGeneratorApplication {
 
     public static void main(String[] args) {
