@@ -84,7 +84,7 @@ public class ReportGeneratorService {
         var engine = new ReportingEngine();
         engine.buildReport(doc, reportData, "report");
         String fileName = String.format(reportProperties.getTemplate().getName(),
-                new SimpleDateFormat("LLLL", Locale.getDefault()).format(now().toDate()));
+                new SimpleDateFormat("LLLL", new Locale("ru", "RU")).format(now().toDate()));
         SaveOutputParameters save = doc.save(fileName);
 
         return save == null ? null : fileName;
