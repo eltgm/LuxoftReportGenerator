@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "report.generate",
+      "type": "java.lang.String",
+      "description": "Крон с датой генрации отчёта."
+    },
+    {
+      "name": "report.template.path",
+      "type": "java.lang.String",
+      "description": "Путь до шаблона."
+    },
+    {
+      "name": "report.template.name",
+      "type": "java.lang.String",
+      "description": "Название шаблона."
+    },
+    {
+      "name": "report.username",
+      "type": "java.lang.String",
+      "description": "Имя пользователя, для которого будет генерироваться отчёт."
+    },
+    {
+      "name": "report.email",
+      "type": "java.lang.String",
+      "description": "Почта получателя отчёта."
+    }
+  ] }

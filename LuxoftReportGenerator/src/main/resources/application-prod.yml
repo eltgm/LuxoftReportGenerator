@@ -1,0 +1,15 @@
+#Spring datasource configs
+spring:
+  datasource:
+    url: ${DB_HOST}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      max-active: 4
+
+#report properties
+report:
+  generate: 0 0/35 * * * *
+#generate: 0 0 15 LW * ?

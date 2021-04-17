@@ -1,0 +1,14 @@
+#Spring datasource configs
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+#report properties
+report:
+  generate: 0 0/5 * * * *

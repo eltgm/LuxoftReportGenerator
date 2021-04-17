@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: test
+  mail:
+    host: in-v3.mailjet.com
+    port: 587
+    username: 77de18ac41c679f84aa3d678f450a746
+    password: e8c30a753dbd0ed8df3a9600856eba7c
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+#report properties
+report:
+  username: ${REPORT_USERNAME}
+  email: ${REPORT_EMAIL}
+  template:
+    path: reportTemplate
+    name: Отчет о проделанной работе, %s. Султаняров В.docx
+
+#mybatis configs
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  config-location: classpath:mybatis-config.xml
+
+#Jira properties
+jira:
+  host: ${JIRA_HOST}
+  username: ${JIRA_USERNAME}
+  password: ${JIRA_PASSWORD}
