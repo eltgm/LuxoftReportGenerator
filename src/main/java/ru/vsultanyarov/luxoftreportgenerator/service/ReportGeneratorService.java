@@ -73,7 +73,7 @@ public class ReportGeneratorService {
     @SneakyThrows
     private String generateReport(ReportData reportData) {
         InputStream targetStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("%s/%s", reportProperties.getTemplate().getPath(), reportProperties.getTemplate().getName()));
+                .getResourceAsStream(String.format("%s", reportProperties.getTemplate().getPath()));
         var doc = new Document(targetStream);
 
         Table tasksTable = (Table) doc.getChild(NodeType.TABLE, 0, true);

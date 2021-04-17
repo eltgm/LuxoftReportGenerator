@@ -18,8 +18,8 @@ report:
   username: ${REPORT_USERNAME}
   email: ${REPORT_EMAIL}
   template:
-    path: reportTemplate
-    name: Отчет о проделанной работе, %s. Султаняров В.docx
+    path: reportTemplate/reportTemplate.docx
+    name: reportTemplate.docx
 
 #mybatis configs
 mybatis:
