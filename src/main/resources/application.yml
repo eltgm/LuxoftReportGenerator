@@ -19,7 +19,7 @@ report:
   email: ${REPORT_EMAIL}
   template:
     path: reportTemplate/reportTemplate.docx
-    name: reportTemplate.docx
+    name: Отчет о проделанной работе, %s. Султаняров В.docx
 
 #mybatis configs
 mybatis:
