@@ -35,10 +35,9 @@ dependencies {
     //Spring Boot configuration processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-    //Web
+    //Webclient/{client-id}/transactions
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
 
     //DB
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${myBatisVersion}"
