@@ -27,7 +27,7 @@ public class WorkCalendarService {
         LocalDate now = LocalDate.now();
 
         ReportDataInfo workDaysAndDayOffsInfo = getWorkDaysAndDayOffsInfo(now);
-        User user = userDao.getUser(userName);
+        User user = userDao.findUserByUsername(userName);
         String month = new SimpleDateFormat("LLLL", new Locale("ru", "RU")).format(now.toDate());
 
         workDaysAndDayOffsInfo.setMissedDays(user.getMissedDays());

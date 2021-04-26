@@ -5,7 +5,7 @@ import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientF
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.net.URI;
+import static java.net.URI.create;
 
 @Configuration
 public class JiraClientConfiguration {
@@ -18,6 +18,6 @@ public class JiraClientConfiguration {
     @Bean
     JiraRestClient jiraRestClient() {
         return new AsynchronousJiraRestClientFactory()
-                .createWithBasicHttpAuthentication(URI.create(jiraProperties.getHost()), jiraProperties.getUsername(), jiraProperties.getPassword());
+                .createWithBasicHttpAuthentication(create(jiraProperties.getHost()), jiraProperties.getUsername(), jiraProperties.getPassword());
     }
 }

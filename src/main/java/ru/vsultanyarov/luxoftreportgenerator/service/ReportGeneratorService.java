@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
+import static java.lang.String.format;
 import static java.util.Calendar.YEAR;
 import static java.util.Calendar.getInstance;
 import static org.joda.time.LocalDate.now;
@@ -29,17 +30,20 @@ public class ReportGeneratorService {
     private final ReportProperties reportProperties;
     private final EmailService emailService;
     private final JiraService jiraService;
+    private final OvertimeService overtimeService;
 
     public ReportGeneratorService(UserDao userDao,
                                   WorkCalendarService workCalendarService,
                                   ReportProperties reportProperties,
                                   EmailService emailService,
-                                  JiraService jiraService) {
+                                  JiraService jiraService,
+                                  OvertimeService overtimeService) {
         this.jiraService = jiraService;
         this.userDao = userDao;
         this.workCalendarService = workCalendarService;
         this.reportProperties = reportProperties;
         this.emailService = emailService;
+        this.overtimeService = overtimeService;
     }
 
     public void startReportGeneration() {
@@ -51,7 +55,7 @@ public class ReportGeneratorService {
         String reportCreateDay = String.valueOf(workDaysAndDayOffsInfo.getReportGenerateDay());
         String reportCreateYear = String.valueOf(calendar.get(YEAR));
 
-        User user = userDao.getUser(reportProperties.getUsername());
+        User user = userDao.findUserByUsername(reportProperties.getUsername());
         String workDays = String.valueOf(workDaysAndDayOffsInfo.getWorkDays() - user.getMissedDays());
         List<JiraIssue> issues = jiraService.getJiraIssues(new ArrayList<>(), "");
         issues.sort(Comparator.comparing(JiraIssue::getTaskNumber));
@@ -67,13 +71,14 @@ public class ReportGeneratorService {
         String fileName = generateReport(reportData);
         if (hasText(fileName)) {
             emailService.sendReport(fileName);
+            cleanUserData();
         }
     }
 
     @SneakyThrows
     private String generateReport(ReportData reportData) {
         InputStream targetStream = getClass().getClassLoader()
-                .getResourceAsStream(String.format("%s", reportProperties.getTemplate().getPath()));
+                .getResourceAsStream(format("%s", reportProperties.getTemplate().getPath()));
         var doc = new Document(targetStream);
 
         Table tasksTable = (Table) doc.getChild(NodeType.TABLE, 0, true);
@@ -85,7 +90,7 @@ public class ReportGeneratorService {
 
         var engine = new ReportingEngine();
         engine.buildReport(doc, reportData, "report");
-        String fileName = String.format(reportProperties.getTemplate().getName(),
+        String fileName = format(reportProperties.getTemplate().getName(),
                 new SimpleDateFormat("LLLL", new Locale("ru", "RU")).format(now().toDate()));
         SaveOutputParameters save = doc.save(fileName);
 
@@ -119,5 +124,13 @@ public class ReportGeneratorService {
             taskStatusCell.getFirstParagraph().appendChild(taskStatusCellRun);
             tasksRow.appendChild(taskStatusCell);
         }
+    }
+
+    private void cleanUserData() {
+        var username = reportProperties.getUsername();
+        User user = userDao.findUserByUsername(username);
+        user.setMissedDays(0);
+        userDao.updateUserMissedDays(user);
+        overtimeService.deleteOverworks(username);
     }
 }

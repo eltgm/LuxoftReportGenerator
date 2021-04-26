@@ -6,6 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import ru.vsultanyarov.luxoftreportgenerator.service.EmailService;
 
+import static java.lang.String.format;
+
 @Component
 @Aspect
 public class ExceptionLogAdvice {
@@ -17,6 +19,6 @@ public class ExceptionLogAdvice {
 
     @AfterThrowing(pointcut = "execution(* ru.vsultanyarov.luxoftreportgenerator.service..*.*(..))", throwing = "ex")
     public void logException(JoinPoint joinPoint, Throwable ex) {
-        emailService.sendError(String.format("Приключилась беда в методе %s.\n Сообщение %s", joinPoint.getSignature(), ex.getLocalizedMessage()));
+        emailService.sendError(format("Приключилась беда в методе %s.%n Сообщение %s", joinPoint.getSignature(), ex.getLocalizedMessage()));
     }
 }

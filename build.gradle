@@ -35,7 +35,7 @@ dependencies {
     //Spring Boot configuration processor
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-    //Webclient/{client-id}/transactions
+    //Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
@@ -78,6 +78,11 @@ dependencies {
 
     //Mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //Caching
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'javax.cache:cache-api'
+    implementation 'org.ehcache:ehcache'
 }
 
 test {

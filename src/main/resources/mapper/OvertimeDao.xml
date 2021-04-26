@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ru.vsultanyarov.luxoftreportgenerator.dao.OvertimeDao">
+    <select id="findUserOvertimeByTaskNumberAndIsWeekend" resultType="JiraIssue">
+        SELECT task_number, overtime
+        FROM overtimes
+        WHERE task_number = #{taskNumber}
+          AND username = #{username}
+          AND is_weekend = #{isWeekend}
+    </select>
+
+    <select id="findAllUsersOvertimes" resultType="JiraIssue">
+        SELECT task_number AS taskNumber,
+               overtime,
+               is_weekend  AS isWeekend
+        FROM overtimes
+        WHERE username = #{username}
+    </select>
+</mapper>

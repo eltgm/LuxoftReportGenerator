@@ -24,5 +24,10 @@
       "name": "report.email",
       "type": "java.lang.String",
       "description": "Почта получателя отчёта."
+    },
+    {
+      "name": "cache.refresh-rate",
+      "type": "java.lang.String",
+      "description": "Период обновления кэша."
     }
   ] }

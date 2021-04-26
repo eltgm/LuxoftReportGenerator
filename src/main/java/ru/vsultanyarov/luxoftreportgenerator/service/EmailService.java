@@ -7,8 +7,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import ru.vsultanyarov.luxoftreportgenerator.config.ReportProperties;
-import ru.vsultanyarov.luxoftreportgenerator.dao.UserDao;
-import ru.vsultanyarov.luxoftreportgenerator.domain.User;
 
 import javax.mail.internet.MimeMessage;
 import java.io.File;
@@ -17,14 +15,11 @@ import java.io.File;
 public class EmailService {
     private final JavaMailSender emailSender;
     private final ReportProperties reportProperties;
-    private final UserDao userDao;
 
     public EmailService(JavaMailSender javaMailSender,
-                        ReportProperties reportProperties,
-                        UserDao userDao) {
+                        ReportProperties reportProperties) {
         this.emailSender = javaMailSender;
         this.reportProperties = reportProperties;
-        this.userDao = userDao;
     }
 
     @SneakyThrows
@@ -45,9 +40,6 @@ public class EmailService {
 
         emailSender.send(message);
         reportFile.delete();
-        User user = userDao.getUser(reportProperties.getUsername());
-        user.setMissedDays(0);
-        userDao.updateUserMissedDays(user);
     }
 
     public void sendError(String error) {

@@ -12,3 +12,7 @@ spring:
 #report properties
 report:
   generate: 0 0 18 LW * ?
+
+#JiraIssues tasks cache refresh rate
+cache:
+  refresh-rate: 0 0 0 ? * *

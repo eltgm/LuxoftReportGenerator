@@ -12,6 +12,11 @@ spring:
           auth: true
           starttls:
             enable: true
+  cache:
+    type: jcache
+    cache-names: [ 'jiraIssues' ]
+    jcache:
+      config: classpath:ehcache.xml
 
 #report properties
 report:

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import ru.vsultanyarov.luxoftreportgenerator.domain.JiraIssue;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.StreamSupport.stream;
 
 @Service
 public class JiraService {
@@ -17,12 +19,16 @@ public class JiraService {
     }
 
     public List<JiraIssue> getJiraIssues(List<JiraIssue> jiraIssues, String excludedTaskKeys) {
-        List<JiraIssue> foundIssues = StreamSupport.stream(jiraRestClient.getSearchClient()
+        List<JiraIssue> foundIssues = stream(jiraRestClient.getSearchClient()
                 .searchJql("assignee = currentUser() AND updatedDate >= startOfMonth(0)" + excludedTaskKeys)
                 .claim()
                 .getIssues().spliterator(), false)
-                .map(issue -> new JiraIssue(issue.getKey(), issue.getSummary(), issue.getStatus().getName().toUpperCase()))
-                .collect(Collectors.toList());
+                .map(issue -> JiraIssue.builder()
+                        .taskNumber(issue.getKey())
+                        .taskTitle(issue.getSummary())
+                        .taskStatus(issue.getStatus().getName().toUpperCase())
+                        .build())
+                .collect(toList());
 
         jiraIssues.addAll(foundIssues);
         if (foundIssues.size() >= 50) {
@@ -35,6 +41,6 @@ public class JiraService {
     private String generateExcludedIssuesRequest(List<JiraIssue> foundIssues) {
         return " AND issueKey not in " + foundIssues.stream()
                 .map(JiraIssue::getTaskNumber)
-                .collect(Collectors.joining(",", "(", ")"));
+                .collect(joining(",", "(", ")"));
     }
 }
