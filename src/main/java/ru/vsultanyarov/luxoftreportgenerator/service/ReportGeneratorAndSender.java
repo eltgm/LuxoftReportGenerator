@@ -11,7 +11,7 @@ public class ReportGeneratorAndSender {
         this.reportGeneratorService = reportGeneratorService;
     }
 
-    @Scheduled(cron = "${report.generate}", zone = "Europe/Moscow")
+    @Scheduled(/*cron = "${report.generate}", zone = "Europe/Moscow"*/ fixedDelay = 30000)
     public void sendReport() {
         reportGeneratorService.startReportGeneration();
     }
