@@ -20,3 +20,6 @@ create table overtimes
     is_weekend  boolean       not null,
     constraint fk_overtimes_users foreign key (username) references users (username)
 );
+
+alter table overtimes
+    ALTER column overtime TYPE decimal(4, 1)

@@ -5,12 +5,10 @@ import ru.vsultanyarov.luxoftreportgenerator.dao.OvertimeDao;
 import ru.vsultanyarov.luxoftreportgenerator.domain.JiraIssue;
 import ru.vsultanyarov.luxoftreportgenerator.domain.Overwork;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.lang.String.join;
-import static java.math.RoundingMode.HALF_UP;
 import static java.util.function.Predicate.not;
 
 
@@ -26,9 +24,7 @@ public class OvertimeService {
         JiraIssue existedUserOvertime = overtimeDao.findUserOvertimeByTaskNumberAndIsWeekend(username, jiraIssue.getTaskNumber(), jiraIssue.getIsWeekend());
 
         if (existedUserOvertime != null) {
-            jiraIssue.setOvertime(BigDecimal.valueOf((jiraIssue.getOvertime() + existedUserOvertime.getOvertime()))
-                    .setScale(1, HALF_UP)
-                    .doubleValue());
+            jiraIssue.setOvertime(jiraIssue.getOvertime() + existedUserOvertime.getOvertime());
             overtimeDao.updateUserOvertime(jiraIssue, username);
 
             return;
